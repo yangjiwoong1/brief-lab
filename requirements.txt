@@ -1,0 +1,11 @@
+python-dotenv
+google-cloud-aiplatform
+langchain
+langchain-google
+langchain-community
+faiss-cpu
+beautifulsoup4
+feedparser
+requests
+pytest
+langchain-google-vertexai

@@ -1,0 +1,11 @@
+{
+  "version": "20250617_1034_news120_range20250617-20250617",
+  "created_at": "2025-06-17T10:34:56.585688",
+  "news_count": 120,
+  "total_chunks": 146,
+  "chunk_size": 1000,
+  "chunk_overlap": 200,
+  "embedding_model": "text-multilingual-embedding-002",
+  "oldest_news": "2025-06-17T09:27:08+09:00",
+  "newest_news": "2025-06-17T10:28:20+09:00"
+}
