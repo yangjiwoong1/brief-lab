@@ -29,7 +29,7 @@ pip install -r requirements.txt
 
 1. [Google Cloud Console](https://console.cloud.google.com/)에서 프로젝트 생성 또는 선택
 2. Vertex AI API 활성화
-3. 서비스 계정 생성 및 키 다운로드
+3. 서비스 계정 생성 및 키 다운로드(Vertex AI에 대한 권한이 있어야 함)
 4. 환경 변수 설정: 프로젝트 루트에 .env를 생성해주세요
 ```
 GOOGLE_CLOUD_PROJECT=프로젝트 ID

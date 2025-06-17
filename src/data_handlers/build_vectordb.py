@@ -37,7 +37,7 @@ def main():
     embeddings_model = NewsEmbeddings()
     
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000,  # 청크 크기 (한글 기준 약 500글자)
+        chunk_size=1000,  # default python len()
         chunk_overlap=200,  # 청크 간 중복 (문맥 유지를 위해)
         length_function=len,
         separators=["\n\n", "\n", ".", "。", "!", "?", "！", "？", " ", ""]  # 한중일 문장 구분자 포함
