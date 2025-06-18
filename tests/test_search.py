@@ -1,15 +1,14 @@
 import pytest
 from src.data_handlers.vector_store import NewsVectorStore
 import os
+from dotenv import load_dotenv
 
 def test_vector_store_search():
     """벡터 스토어 검색 기능 테스트"""
-    # 가장 최근 벡터 스토어 디렉토리 찾기
-    vector_store_dir = "data/vector_store"
-    subdirs = [d for d in os.listdir(vector_store_dir) 
-              if os.path.isdir(os.path.join(vector_store_dir, d)) and not d.startswith('.')]
-    latest_dir = sorted(subdirs)[-1]  # 가장 최근 디렉토리 선택
-    vector_store_path = os.path.join(vector_store_dir, latest_dir)
+    # 환경 변수 로드
+    load_dotenv()
+    vector_store_path = os.getenv('LATEST_DIR_PATH')
+    assert vector_store_path, "LATEST_DIR_PATH가 설정되지 않았습니다."
 
     # 벡터 스토어 로드
     vector_store = NewsVectorStore()
@@ -17,7 +16,7 @@ def test_vector_store_search():
     
     # 테스트할 검색 쿼리들
     test_queries = [
-        "AI 소식"
+        "인도 파키스탄 전쟁"
     ]
     
     # 각 쿼리에 대해 검색 실행 및 결과 확인

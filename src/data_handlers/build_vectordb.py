@@ -7,6 +7,7 @@ from datetime import datetime
 import json
 from email.utils import parsedate_to_datetime
 from src.models.embeddings import NewsEmbeddings
+import shutil
 
 def get_version_info(news_items: list) -> str:
     """
@@ -27,6 +28,9 @@ def get_version_info(news_items: list) -> str:
 def main():
     # 환경 변수 로드
     load_dotenv()
+
+    latest_dir_path = os.getenv('LATEST_DIR_PATH', os.path.join("data", "vector_store", "latest"))
+    os.makedirs(latest_dir_path, exist_ok=True)
     
     print("1. 뉴스 기사 수집 중...")
     crawler = YonhapNewsCrawler()
@@ -83,6 +87,18 @@ def main():
     # 벡터 저장소와 원본 뉴스 데이터 저장
     vector_store.save(save_directory)
     vector_store.save_original_news(news_items, save_directory)
+
+    if os.path.isdir(latest_dir_path):
+        # 디렉토리 내 모든 파일 및 서브디렉토리 삭제
+        for filename in os.listdir(latest_dir_path):
+            file_path = os.path.join(latest_dir_path, filename)
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.remove(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+
+    vector_store.save(latest_dir_path)
+    vector_store.save_original_news(news_items, latest_dir_path)
     
     # 버전 메타데이터 저장
     metadata = {
@@ -98,6 +114,8 @@ def main():
     }
     
     with open(f"{save_directory}/metadata.json", 'w', encoding='utf-8') as f:
+        json.dump(metadata, f, ensure_ascii=False, indent=2)
+    with open(f"{latest_dir_path}/metadata.json", 'w', encoding='utf-8') as f:
         json.dump(metadata, f, ensure_ascii=False, indent=2)
     
     print(f"벡터 저장소가 {save_directory}에 저장되었습니다.")
