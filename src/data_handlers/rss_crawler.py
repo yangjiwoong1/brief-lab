@@ -37,8 +37,12 @@ class YonhapNewsCrawler:
                 # 각 단락의 텍스트를 리스트로 모으고 줄바꿈으로 연결
                 content = '\n'.join([p.get_text(strip=True) for p in paragraphs if p.get_text(strip=True)])
                 
-                # 저작권 관련 텍스트와 송고 시간 제거
-                content = content.split('<저작권자')[0].strip()
+                # 특정 제보 문구와 저작권 관련 텍스트 제거
+                content = content.replace('제보는 카카오톡 okjebo', '').strip()
+                lines = content.split('\n')
+                if lines and '<저작권자' in lines[-1]:
+                    lines.pop()  # 저작권자 있는 마지막 줄 제거
+                content = '\n'.join(lines).strip()
                 return content
             return ""
         except Exception as e:
@@ -66,7 +70,7 @@ class YonhapNewsCrawler:
                 # 실제 기사 본문 가져오기
                 full_content = self._get_article_content(entry.link)
                 
-                if full_content:  # 본문이 성공적으로 추출된 경우만 저장
+                if len(full_content) > 100:  # 본문 길이가 100보다 길 경우 저장
                     news_item = {
                         'title': entry.title.replace('<![CDATA[', '').replace(']]>', ''),  # CDATA 태그 제거
                         'summary': summary,
@@ -79,8 +83,8 @@ class YonhapNewsCrawler:
                     }
                     
                     all_entries.append(news_item)
-                    # 다음 반복 전에 0~1초 사이로 랜덤하게 딜레이를 주어 서버 부하를 줄임
-                    time.sleep(random.uniform(0,1))
+                    # # 다음 반복 전에 1초 정도 딜레이를 주어 서버 부하를 줄임
+                    # time.sleep(1)
         
         return all_entries
 

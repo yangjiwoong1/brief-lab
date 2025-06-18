@@ -25,12 +25,12 @@ pip install -r requirements.txt
 
 ## Google Cloud 설정
 
-이 프로젝트는 Google Vertex AI를 사용하므로 다음 설정이 필요합니다:
+이 프로젝트는 RAG 구축을 위한 임베딩 모델과 LLM에 Google Vertex AI를 사용하므로 다음 설정이 필요합니다:
 
 1. [Google Cloud Console](https://console.cloud.google.com/)에서 프로젝트 생성 또는 선택
 2. Vertex AI API 활성화
 3. 서비스 계정 생성 및 키 다운로드(Vertex AI에 대한 권한이 있어야 함)
-4. 환경 변수 설정: 프로젝트 루트에 .env를 생성해주세요
+4. 환경 변수 설정: 프로젝트 루트에 .env를 생성
 ```
 GOOGLE_CLOUD_PROJECT=프로젝트 ID
 GOOGLE_APPLICATION_CREDENTIALS = path/to/your/service-account-key.json
