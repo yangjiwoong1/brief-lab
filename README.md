@@ -43,9 +43,9 @@ VERTEX_AI_LOCATION=Vertex AI API 리전
 ### API 서버 실행
 ```
 # 로컬 환경에서 grok 없이 실행하는 경우 
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8088
 # 클라우드나 로컬에서 grok 서비스를 사용하는 경우
-python run_colab_server.py
+python run_server.py
 ```
 #### API 서버 실행 관련 설정
 ```
