@@ -39,3 +39,17 @@ VERTEX_AI_LOCATION=Vertex AI API 리전
 
 ## 사용 방법
 데이터 처리와 관련된 자세한 사용법은 `src/data_handlers` 디렉토리의 코드를 참고해주세요.
+
+### API 서버 실행
+```
+# 로컬 환경에서 grok 없이 실행하는 경우 
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8088
+# 클라우드나 로컬에서 grok 서비스를 사용하는 경우
+python run_server.py
+```
+#### API 서버 실행 관련 설정
+```
+# .env 에 추가
+LATEST_DIR_PATH=your_save_path    # summarizer 의 VECTOR_DB_PATH 와 같은 디렉토리로 설정
+NGROK_AUTH_TOKEN=your_ngrok_token
+```
